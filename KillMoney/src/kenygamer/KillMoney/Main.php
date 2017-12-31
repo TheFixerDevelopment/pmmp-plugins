@@ -30,9 +30,9 @@ use pocketmine\utils\TextFormat as TF;
 class Main extends PluginBase implements Listener{
   
   /** Plugin name */
-  const PLUGIN_NAME = "KillMoney";
+  const PLUGIN_NAME = "KillPlayers4Money";
   /** Plugin version */
-  const PLUGIN_VERSION = "1.1.5";
+  const PLUGIN_VERSION = "2.0.0-B1";
   
   const KILLER_PERMISSION = "killmoney.killer.receive.money";
   const VICTIM_PERMISSION = "killmoney.victim.lose.money";
@@ -43,7 +43,7 @@ class Main extends PluginBase implements Listener{
   /**
    * @return void
    */
-  public function onEnable(){
+  public function onEnable(): void{
     $this->getLogger()->info(TF::GREEN."Enabling ".$this->getDescription()->getFullName()."...");
     new AutoNotifier($this);
     $this->loadConfig();
@@ -65,7 +65,7 @@ class Main extends PluginBase implements Listener{
   /**
    * @return void
    */
-  public function onDisable(){
+  public function onDisable(): void{
     $this->getLogger()->info(TF::RED."Disabling ".$this->getDescription()->getFullName()."...");
   }
   
@@ -74,7 +74,7 @@ class Main extends PluginBase implements Listener{
    *
    * @return void
    */
-  private function loadConfig(){
+  private function loadConfig(): void{
     if(!is_dir($this->getDataFolder())){
       @mkdir($this->getDataFolder());
     }
@@ -91,7 +91,7 @@ class Main extends PluginBase implements Listener{
    *
    * @return string
    */
-  private function translate(array $values, string $message) : string{
+  private function translate(array $values, string $message): string{
     $tags = [
       "%KILLER%",
       "%VICTIM%",
@@ -105,7 +105,7 @@ class Main extends PluginBase implements Listener{
    *
    * @return void
    */
-  public function onPlayerDeath(PlayerDeathEvent $event){
+  public function onPlayerDeath(PlayerDeathEvent $event): void{
     $victim = $event->getPlayer();
     if($victim->getLastDamageCause() instanceof EntityDamageByEntityEvent){
       if($victim->getLastDamageCause()->getDamager() instanceof Player){
@@ -138,7 +138,7 @@ class Main extends PluginBase implements Listener{
   public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
     if($command->getName() === "killmoney"){
       if($sender->hasPermission("killmoney.command")){
-        $sender->sendMessage(TF::GREEN."[KillMoney]".TF::GOLD." This server is running ".TF::GREEN.$this->getDescription()->getFullName()."\n".TF::AQUA."Author: @XxKenyGamerxX\nLink: github.com/kenygamer/pmmp-plugins");
+        $sender->sendMessage(TF::GREEN."[KillPlayers4Money]".TF::GOLD." This server is running ".TF::GREEN.$this->getDescription()->getFullName()."\n".TF::AQUA."Author: VMPE Development Team");
         return true;
       }
     }
